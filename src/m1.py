@@ -26,6 +26,7 @@ def main():
     That is, a  TEST   function will not be called
     until you begin work on the code that it is testing.
     """
+    '''
     if m1_tests.is_implemented('__init__', 10):
         run_test_init()
     if m1_tests.is_implemented('get_distance_from'):
@@ -40,6 +41,7 @@ def main():
         run_test_change_color()
     if m1_tests.is_implemented('change_to_original_color'):
         run_test_change_to_original_color()
+    '''
     if m1_tests.is_implemented('change_to_next_color_in_tuple'):
         run_test_change_to_next_color_in_tuple()
 
@@ -106,6 +108,7 @@ class CircleChanger(object):
         self.circle.fill_color = fill_color
         self.colors = colors
         self.reset_color = fill_color
+        self.index = 0
 
     def __repr__(self):
         """
@@ -476,14 +479,24 @@ class CircleChanger(object):
         fill color have no effect on or interaction with this method.
         """
         ################################################################
-        # TODO: 9.
+        # DONE: 9.
         #   First, READ the doc-string (specification) above.
         #   Second, READ the   run_test_change_to_next_color_in_tuple
         #   function (below).  Third, implement and test this method.
         ################################################################
+        '''
+        if self.index % len(self.colors) == 0:
+            self.index = 0
+            self.circle.fill_color = self.colors[self.index]
+        else:
+            self.circle.fill_color = self.colors[self.index]
+        self.index = self.index + 1
+        '''
 
-        self.circle.fill_color = self.colors[self.index]
-        self.index = self.index + 1 % self.colors[self.index]
+        # OR the code below works as well
+
+        self.circle.fill_color = self.colors[self.index % 3]
+        self.index = self.index + 1
 
 ########################################################################
 # The TEST functions for the  CircleChanger  class begin here.
@@ -518,6 +531,8 @@ def run_test_init():
     Now the leftmost (formerly BLUE) circle is GREEN
     and the YELLOW circle has a thicker outline.""")
 
+#self.index = self.index + 1 % self.colors[self.index]
+#self.circle.fill_color = self.colors[self.index]
 
 def run_test_get_distance_from():
     m1_tests.run_test_get_distance_from()  # This runs OUR tests
